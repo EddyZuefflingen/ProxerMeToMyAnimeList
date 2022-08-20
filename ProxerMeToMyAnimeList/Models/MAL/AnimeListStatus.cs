@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ProxerMeToMyAnimeList.Models
+﻿namespace ProxerMeToMyAnimeList.Models
 {
     internal class AnimeListStatus
     {
@@ -17,7 +11,7 @@ namespace ProxerMeToMyAnimeList.Models
         public statusTypes status
         {
             get { return _status; }
-            set 
+            set
             {
                 _status = value;
                 if (_status == statusTypes.completed) num_watched_episodes = 999999;

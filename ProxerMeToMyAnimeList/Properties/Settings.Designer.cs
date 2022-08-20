@@ -25,7 +25,7 @@ namespace ProxerMeToMyAnimeList.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("718ef986da4de4983f4cff4ce97ce364")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string MAL_CLIENT_ID {
             get {
                 return ((string)(this["MAL_CLIENT_ID"]));
@@ -37,7 +37,7 @@ namespace ProxerMeToMyAnimeList.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("dadae21cd84bef2bb87a07d2b1905fa437d164d4dea45045466312482d8720a1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string MAL_CLIENT_SECRET {
             get {
                 return ((string)(this["MAL_CLIENT_SECRET"]));
@@ -49,7 +49,7 @@ namespace ProxerMeToMyAnimeList.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://proxer.me/user/80217/anime#top")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string PROXER_ANIMELIST_URL {
             get {
                 return ((string)(this["PROXER_ANIMELIST_URL"]));

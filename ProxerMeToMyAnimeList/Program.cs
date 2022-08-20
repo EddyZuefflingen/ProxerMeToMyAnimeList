@@ -2,6 +2,7 @@
 using ProxerMeToMyAnimeList.Models;
 using ProxerMeToMyAnimeList.Models.MAL;
 using ProxerMeToMyAnimeList.Models.ProxerMe;
+using ProxerMeToMyAnimeList.Properties;
 using ProxerMeToMyAnimeList.Services;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace ProxerMeToMyAnimeList
     {
         static void Main(string[] args)
         {
+            CheckForConfiguration();
             SyncProxerAnimelistToMAL();
         }
 
@@ -40,6 +42,17 @@ namespace ProxerMeToMyAnimeList
                         return data.node.id;
                 }
             return 0;
+        }
+
+        static void CheckForConfiguration()
+        {
+            if (Settings.Default.MAL_CLIENT_ID == "" || Settings.Default.MAL_CLIENT_SECRET == "" || Settings.Default.PROXER_ANIMELIST_URL == "")
+            {
+                Console.WriteLine("Not all Settings have been set!");
+                Console.WriteLine("Please follow the instructions at the section 'How to use' on GitHub!");
+                Console.ReadKey();
+                Environment.Exit(1);
+            }
         }
 
         static void SyncProxerAnimelistToMAL()

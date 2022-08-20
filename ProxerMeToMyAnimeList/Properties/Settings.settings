@@ -1,0 +1,15 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ProxerMeToMyAnimeList.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="MAL_CLIENT_ID" Type="System.String" Scope="User">
+      <Value Profile="(Default)">718ef986da4de4983f4cff4ce97ce364</Value>
+    </Setting>
+    <Setting Name="MAL_CLIENT_SECRET" Type="System.String" Scope="User">
+      <Value Profile="(Default)">dadae21cd84bef2bb87a07d2b1905fa437d164d4dea45045466312482d8720a1</Value>
+    </Setting>
+    <Setting Name="PROXER_ANIMELIST_URL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://proxer.me/user/80217/anime#top</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

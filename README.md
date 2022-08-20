@@ -34,3 +34,5 @@ The Proxer API is not public, that the reason we will scrap all important inform
 - Creating a "good" Readme.md
 - Refactoring
 - Add a check to determine which Animes on Proxer are completed, canceled or on the Todo list
+- How to configurate the MAL API
+- Better CLI Layout/Design

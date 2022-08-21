@@ -6,6 +6,7 @@ using ProxerMeToMyAnimeList.Properties;
 using RestSharp;
 using System;
 using System.Diagnostics;
+using System.IO;
 
 namespace ProxerMeToMyAnimeList.Services
 {
@@ -38,6 +39,7 @@ namespace ProxerMeToMyAnimeList.Services
             Process.Start(new ProcessStartInfo($"{AUTH_BASE_URL}{ENDPOINT}?{TYPE}&{ID}&{CHALLENGE}") { UseShellExecute = true, Verb = "open" });
 
             Console.WriteLine("Response URL:");
+            Console.SetIn(new StreamReader(Console.OpenStandardInput(8192)));
             OAUTH_CODE = Console.ReadLine().Replace("http://localhost/oauth?code=", "");
             //OAUTH_CODE = Console.ReadLine().Replace("http://localhost/oauth?session_state=ff6c1226-c3d6-4a2f-b20a-7872e9017082&code=", "");
 
@@ -85,6 +87,7 @@ namespace ProxerMeToMyAnimeList.Services
             request.AddHeader("Authorization", $"Bearer {token.access_token}");
             request.AddParameter("limit", "1000");
             request.AddParameter("fields", "list_status");
+            request.AddParameter("nsfw", true);
 
             var response = client.Execute(request);
             return JsonConvert.DeserializeObject<AnimeList>(response.Content);
@@ -97,6 +100,7 @@ namespace ProxerMeToMyAnimeList.Services
             var request = new RestRequest("/anime", Method.Get);
             request.AddHeader("Authorization", $"Bearer {token.access_token}");
             request.AddParameter("q", searchQuery, true);
+            request.AddParameter("nsfw", true);
 
             var response = client.Execute(request);
             return JsonConvert.DeserializeObject<AnimeList>(response.Content);
@@ -134,7 +138,8 @@ namespace ProxerMeToMyAnimeList.Services
             var request = new RestRequest($"anime/{AnimeID}", Method.Get);
             request.AddHeader("Authorization", $"Bearer {token.access_token}");
             request.AddParameter("fields", "id,title,main_picture,alternative_titles,start_date,end_date,synopsis,mean,rank,popularity,num_list_users,num_scoring_users,nsfw,created_at,updated_at,media_type,status,genres,my_list_status,num_episodes,start_season,broadcast,source,average_episode_duration,rating,pictures,background,related_anime,related_manga,recommendations,studios,statistics");
-
+            request.AddParameter("nsfw", true);
+            
             var response = client.Execute(request);
             return JsonConvert.DeserializeObject<AnimeDetails>(response.Content);
         }

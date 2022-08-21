@@ -20,7 +20,6 @@ namespace ProxerMeToMyAnimeList
 
         static int FindProxerAnimeIdOnMALEngName(AnimeListItem proxerItem)
         {
-            Console.WriteLine($"Searching Original Name: {proxerItem.OriginalName}");
             AnimeList searchItems = MyAnimeList.GetAnimeList(proxerItem.OriginalName);
             if (searchItems.data != null)
                 foreach (var data in searchItems.data)
@@ -32,15 +31,26 @@ namespace ProxerMeToMyAnimeList
 
         static int FindProxerAnimeIdOnMALJapName(AnimeListItem proxerItem)
         {
-            Console.WriteLine($"Searching Jap. Name: {proxerItem.JapName}");
             AnimeList searchItems = MyAnimeList.GetAnimeList(proxerItem.JapName);
             if (searchItems.data != null)
                 foreach (var data in searchItems.data)
                 {
                     AnimeDetails details = MyAnimeList.GetAnimeDetails(data.node.id);
-                    if (details.alternative_titles.ja == proxerItem.JapName || data.node.title == proxerItem.ManualEnteredMALName)
+                    if (details.alternative_titles.ja == proxerItem.JapName || details.alternative_titles.ja == proxerItem.ManualEnteredMALName)
                         return data.node.id;
                 }
+
+            if (proxerItem.ManualEnteredMALName != null && proxerItem.ManualEnteredMALName != "")
+            {
+                searchItems = MyAnimeList.GetAnimeList(proxerItem.ManualEnteredMALName);
+                if (searchItems.data != null)
+                    foreach (var data in searchItems.data)
+                    {
+                        AnimeDetails details = MyAnimeList.GetAnimeDetails(data.node.id);
+                        if (details.alternative_titles.ja == proxerItem.ManualEnteredMALName || data.node.title == proxerItem.ManualEnteredMALName)
+                            return data.node.id;
+                    }
+            }
             return 0;
         }
 
@@ -66,14 +76,15 @@ namespace ProxerMeToMyAnimeList
             for (int i = 0; i < ProxerMeList.Count - 1; i++)
                 if (ProxerMeList[i].OriginalName != "" && !ProxerMeList[i].IngoreOnSync && ProxerMeList[i].LastSync == DateTime.MinValue)
                 {
+                    Console.WriteLine("Searching for " + ProxerMeList[i].OriginalName);
                     int malAnimeID = FindProxerAnimeIdOnMALEngName(ProxerMeList[i]);
-                    if (malAnimeID == 0) FindProxerAnimeIdOnMALJapName(ProxerMeList[i]);
+                    if (malAnimeID == 0) malAnimeID = FindProxerAnimeIdOnMALJapName(ProxerMeList[i]);
 
                     //Wenn immer noch 0 dann nicht gefunden.
                     if (malAnimeID == 0)
                     {
                         ProxerAnimeNotFound.Add(ProxerMeList[i]);
-                        Console.WriteLine($"Proxer Anime not found: {ProxerMeList[i].OriginalName}");
+                        Console.WriteLine($"Anime on MAL not found: {ProxerMeList[i].OriginalName}");
                         File.WriteAllText(path, JsonConvert.SerializeObject(ProxerAnimeNotFound, Formatting.Indented));
                     }
                     else
@@ -83,6 +94,7 @@ namespace ProxerMeToMyAnimeList
                         File.WriteAllText(PROXER_ANIME_LIST, JsonConvert.SerializeObject(ProxerMeList, Formatting.Indented));
                         Console.WriteLine($"MAL Updated: {ProxerMeList[i].OriginalName} - {malAnimeID}");
                     }
+                    Console.WriteLine("");
                 }
         }
     }
